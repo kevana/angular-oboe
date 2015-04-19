@@ -26,7 +26,10 @@ angular.module('ngOboe', [])
                             })
                             .done(function () {
                                 // when the stream is done make sure the last page of nodes is returned
-                                defer.resolve();
+                                // MODIFIED: JSON streams containing multiple objects (like Docker's) 
+                                // will cause OboeJS to hit the done callback at the end of each object. 
+                                // We never resolve the promise here, it's probably ok.
+                                //defer.resolve();
                                 return oboe.drop;
                             });
                         return defer.promise;
